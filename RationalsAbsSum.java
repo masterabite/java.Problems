@@ -1,7 +1,7 @@
 import java.util.Random;
 import java.util.Scanner;
 
-class Main {
+class RationalsAbsSum {
     public static long gcd(long a, long b) {
         return b>0 ? gcd(b, a % b) : a;
     }
