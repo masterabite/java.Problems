@@ -6,6 +6,10 @@ class Rational {
         return 1.0*a/b;
     }
 
+    public static boolean isInfinite(Rational r) {
+        return r.b == 0;
+    }
+
     static Rational getRandomRational(Random random) {
         return new Rational(random.nextInt()%201-100, random.nextInt()%201-100);
     }
@@ -22,14 +26,15 @@ class Rational {
 
     Rational(long a, long b) {
         if (b == 0) {
-            a = 0;
-            b = 1;
-        }
-        this.a = a*b/Math.abs(b);
-        this.b = Math.abs(b);
+            this.a = a;
+            this.b = 0;
+        } else {
+            this.a = a * b / Math.abs(b);
+            this.b = Math.abs(b);
 
-        if (this.a == 0) {
-            this.b = 1;
+            if (this.a == 0) {
+                this.b = 1;
+            }
         }
         reduce();
     }
@@ -77,7 +82,7 @@ class Rational {
     }
 
     public static boolean isEqual(Rational r1, Rational r2) {
-        return r1.a*r2.b == r2.a*r1.b;
+        return (r1.a == r2.a && r1.b == r2.b) || (r1.b==0 && r2.b==0);
     }
 
     public boolean isBigger(Rational r) {
@@ -103,8 +108,7 @@ class Rational {
     }
 
     public String toString() {
-
-        if (a == 0)
+        if (a == 0 && b != 0)
             return "0";
         else if (b == 1)
             return Long.toString(a);
